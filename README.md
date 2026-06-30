@@ -1,45 +1,53 @@
-# 🚀 NScan
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.x-blue.svg">
-  <img src="https://img.shields.io/badge/Platform-Termux-green.svg">
-  <img src="https://img.shields.io/badge/OS-Linux-orange.svg">
-  <img src="https://img.shields.io/badge/License-MIT-red.svg">
+# 🛡️ NScan
+
+### Fast • Accurate • Lightweight Network Reconnaissance Toolkit
+
+<p>
+  <img src="https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python">
+  <img src="https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Version-v1.0.0-red?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge">
 </p>
 
-<p align="center">
-Fast • Accurate • Lightweight • Network Reconnaissance Tool
-</p>
+*A modern network reconnaissance toolkit for fast bug host discovery, reverse IP lookup, active subnet scanning, and payload generation.*
 
 ---
 
-# 📖 About
+**👨‍💻 Developer:** **NS Hacker**
 
-**NScan** is a powerful Python-based Network Reconnaissance Tool built for fast Bug Host Discovery, Reverse IP Lookup, Active Subnet Detection and Payload Generation.
+**📢 Telegram:** https://t.me/nscan_script
 
-It combines multiple reconnaissance utilities into one interactive terminal interface while using **ProjectDiscovery httpx** for high-speed verification.
+</div>
+
+---
+
+# 🚀 About
+
+NScan is a lightweight and powerful Python-based network reconnaissance toolkit designed for researchers and security professionals.
+
+It combines multiple reconnaissance modules into a single interactive terminal interface while using ProjectDiscovery's **httpx** engine for fast and reliable HTTP probing.
 
 ---
 
 # ✨ Features
 
-- 🔍 Bug Host Discovery
-- 🌐 Reverse IP Lookup
+- 🌐 Bug Host Discovery
+- 🔎 Reverse IP Lookup
 - 📡 Active /16 Subnet Scanner
-- ⚡ Payload Generator
-- 🖥 HTTP Status Detection
-- 🔒 HTTPS Detection
-- 📦 Technology Detection
-- 🌍 Server Banner Detection
-- 💾 Automatic Result Saving
-- 📁 File & CIDR Support
-- 🚀 Fast Multi-threaded Scanning
+- ⚡ HTTP/HTTPS Live Host Detection
+- 🛰️ Technology & Server Detection
+- 🔥 Payload Generator
+- 📁 Save Scan Results
+- 🎨 Interactive Terminal Interface
+- 🚀 Fast Scanning using httpx
+  
+ # 📦 Installation
 
----
+## 📋 Requirements
 
-# 🛠 Requirements
-
-Before running NScan make sure these packages are installed:
+Before installing NScan, make sure the following packages are available:
 
 - Python 3.x
 - Git
@@ -48,306 +56,293 @@ Before running NScan make sure these packages are installed:
 
 ---
 
-# 📦 Installation (Termux)
+## 📱 Termux Installation
 
-## Step 1 — Update Packages
+### Step 1 — Update Packages
 
 ```bash
 pkg update -y && pkg upgrade -y
 ```
 
----
-
-## Step 2 — Install Required Packages
+### Step 2 — Install Dependencies
 
 ```bash
 pkg install python git golang -y
 ```
 
----
-
-## Step 3 — Install ProjectDiscovery httpx
+### Step 3 — Install httpx
 
 ```bash
 go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 ```
 
----
-
-## Step 4 — Add httpx to PATH
+### Step 4 — Add httpx to PATH
 
 ```bash
 cp $HOME/go/bin/httpx $PREFIX/bin/ 2>/dev/null || true
 ```
 
----
-
-## Step 5 — Clone Repository
+### Step 5 — Clone Repository
 
 ```bash
 git clone https://github.com/njmehra09/nscan.git
 ```
 
----
-
-## Step 6 — Enter Project Directory
+### Step 6 — Open Project
 
 ```bash
 cd nscan
 ```
----
 
-## Step 7 — Create Global Shortcut (Optional)
-
-Agar aap chahte hain ki tool ko future me sirf `ns` likhkar kahin se bhi run kar sakein, to ye command chalayein:
-
-```bash
-sed -i '/alias ns=/d' $HOME/.bashrc
-echo "alias ns='cd \$HOME/nscan && python nscan.py'" >> $HOME/.bashrc
-source $HOME/.bashrc
-```
-
-Ab terminal me sirf:
-
-```bash
-ns
-```
-
-likhne se tool start ho jayega.
-
----
-
-## Step 8 — Run NScan
+### Step 7 — Run NScan
 
 ```bash
 python nscan.py
 ```
 
-Ya agar alias banaya hai:
-
-```bash
-ns
-```
-
 ---
 
-# ⚡ One Click Installer
+# ⚡ One-Click Installation
 
-Ek hi command me complete installation:
+Run the following command to install everything automatically.
 
 ```bash
 pkg update -y && \
 pkg install python git golang -y && \
 go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest && \
 cp $HOME/go/bin/httpx $PREFIX/bin/ 2>/dev/null || true && \
-rm -rf nscan && \
 git clone https://github.com/njmehra09/nscan.git && \
 cd nscan && \
-sed -i '/alias ns=/d' $HOME/.bashrc && \
-echo "alias ns='cd \$HOME/nscan && python nscan.py'" >> $HOME/.bashrc && \
-source $HOME/.bashrc && \
 python nscan.py
 ```
 
 ---
 
-# 🖥 Main Menu
+# 💻 Linux Installation
 
-When you run the tool, you'll see a menu similar to:
+### Ubuntu / Debian
 
-```
-[1] Bug Host Discovery
-[2] Reverse IP Lookup
-[3] Payload Generator
-[4] Active /16 Subnet Scanner
-[5] Exit
-```
+```bash
+sudo apt update
+sudo apt install python3 python3-pip git golang -y
 
----
+go install github.com/projectdiscovery/httpx/cmd/httpx@latest
 
-# 📂 Output Files
+git clone https://github.com/njmehra09/nscan.git
 
-Generated files are automatically saved.
+cd nscan
 
-Example:
-
-```
-scan_results_20260630_101500/
-```
-
-Reverse DNS output:
-
-```
-reverse_dns_results.txt
-```
-
-Verified subnets:
-
-```
-verified_subnets.txt
-```
-
-Payloads:
-
-```
-payloads.txt
+python3 nscan.py
 ```
 
 ---
 
-# 🚀 Usage Examples
+### Kali Linux
 
-### Scan Single Target
+```bash
+sudo apt update
+sudo apt install python3 python3-pip git golang -y
 
+go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+
+git clone https://github.com/njmehra09/nscan.git
+
+cd nscan
+
+python3 nscan.py
 ```
-example.com
-```
-
-### Scan Multiple Targets
-
-```
-targets.txt
-```
-
-### Scan CIDR
-
-```
-104.16.0.0/16
-```
-
-### Reverse Lookup
-
-```
-8.8.8.8
-```
-
-### Payload Generation
-
-Generate payloads directly from the Payload Generator menu.
 
 ---
 
-# ⚙ Supported Platforms
+# 🚀 Create Global Command
 
-- ✅ Termux
-- ✅ Ubuntu
-- ✅ Debian
-- ✅ Kali Linux
-- ✅ Arch Linux
-- ✅ Fedora
-- ✅ macOS (Python + Go Installed)
+Create a shortcut so you can launch NScan from anywhere.
 
----
-# 📌 Notes
+```bash
+echo "alias ns='cd \$HOME/nscan && python nscan.py'" >> ~/.bashrc
 
-- Internet connection is required.
-- Make sure **httpx** is installed correctly.
-- The tool automatically saves scan results.
-- Supports both single targets and bulk input files.
-- Supports CIDR-based scanning.
-- Large scans may take time depending on network speed.
+source ~/.bashrc
+```
 
----
+Now simply run:
 
-# ⚠ Disclaimer
+```bash
+ns
+```
 
-This project is intended **only for educational purposes and authorized security testing**.
-
-Do not scan or test systems without proper permission.
-
-The developer is **not responsible** for any misuse of this tool.
+from anywhere in your terminal.
 
 ---
 
 # 📁 Project Structure
 
-```
+```text
 nscan/
-│
 ├── nscan.py
-├── README.md
-├── requirements.txt
-├── payloads/
+├── assets/
 ├── output/
-└── assets/
+├── requirements.txt
+├── install.sh
+├── LICENSE
+└── README.md
 ```
+# 📸 Screenshots
+
+> **Coming Soon**
+
+### Main Menu
+
+![Main Menu](assets/screenshots/main-menu.png)
+
+### Bug Host Discovery
+
+![Bug Host Discovery](assets/screenshots/bug-host.png)
+
+### Reverse IP Lookup
+
+![Reverse IP](assets/screenshots/reverse-ip.png)
+
+### Active /16 Scanner
+
+![Subnet Scanner](assets/screenshots/subnet.png)
+
+---
+
+# 🚀 Usage
+
+Start the tool using:
+
+```bash
+python nscan.py
+```
+
+or (if alias is configured):
+
+```bash
+ns
+```
+
+---
+
+# 📋 Available Modules
+
+| Module | Description |
+|---------|-------------|
+| 🌐 Bug Host Discovery | Discover live HTTP/HTTPS bug hosts |
+| 🔎 Reverse IP Lookup | Find domains hosted on an IP |
+| 📡 Active /16 Scanner | Scan active subnets quickly |
+| 🔥 Payload Generator | Generate payloads instantly |
+
+---
+
+# 📂 Output
+
+Results are automatically saved inside the **output/** directory.
+
+Example:
+
+```text
+output/
+├── bug_hosts.txt
+├── reverse_ip.txt
+├── subnet_scan.txt
+└── payloads.txt
+```
+
+---
+
+# ❓ Frequently Asked Questions
+
+### Does NScan support Termux?
+
+✅ Yes.
+
+---
+
+### Does it work on Linux?
+
+✅ Ubuntu, Debian and Kali Linux are supported.
+
+---
+
+### Which HTTP engine does NScan use?
+
+NScan uses **ProjectDiscovery httpx** for fast and reliable HTTP probing.
+
+---
+
+### Is Python required?
+
+Yes. Python 3.x is required.
+
+---
+
+# 🛣️ Roadmap
+
+### Version 1.0
+
+- ✅ Bug Host Discovery
+- ✅ Reverse IP Lookup
+- ✅ Active /16 Scanner
+- ✅ Payload Generator
+
+### Upcoming
+
+- DNS Lookup
+- SSL Information
+- GeoIP Lookup
+- JSON Export
+- HTML Report
+- Better CLI
+- Configuration File
+- Auto Update
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome.
+Contributions, bug reports and feature requests are welcome.
 
-If you'd like to improve this project:
-
-1. Fork the repository.
-2. Create a new branch.
-3. Commit your changes.
-4. Open a Pull Request.
+Feel free to open an Issue or Pull Request.
 
 ---
 
-# 🐞 Reporting Bugs
+# ⚠️ Disclaimer
 
-If you find any bug or have suggestions:
+This project is intended for educational purposes and authorized security testing only.
 
-- Open an Issue on GitHub
-- Contact via Telegram
+The developer is not responsible for any misuse of this tool.
+
+---
+
+# 👨‍💻 Developer
+
+**NS Hacker**
+
+📢 Telegram
+
+https://t.me/nscan_script
 
 ---
 
 # ⭐ Support
 
-If you like this project, don't forget to:
+If you like this project:
 
 ⭐ Star this repository
 
-🍴 Fork the repository
+🍴 Fork it
 
-📢 Share it with your friends
-
----
-
-# 👨‍💻 Developed By
-
-## **NS Hacker**
-
-Cyber Security Researcher & Python Developer
+📢 Share it with others
 
 ---
 
-# 📢 Telegram
+<div align="center">
 
-**Channel:** https://t.me/nscan_script
+## ❤️ Thank You For Using NScan
 
-Stay updated for:
+**Fast • Accurate • Lightweight**
 
-- Latest Tool Updates
-- Bug Host Collections
-- Payloads
-- Security Tips
-- New Releases
+Made with ❤️ by **NS Hacker**
 
----
-
-# ❤️ Thank You
-
-Thank you for using **NScan**.
-
-Your support motivates future updates and improvements.
-
-Happy Scanning! 🚀
-
----
-
-<p align="center">
-
-Made with ❤️ by <b>NS Hacker</b>
-
-</p>
-
-<p align="center">
-
-⭐ Don't forget to Star this Repository ⭐
-
-</p>
+</div>
