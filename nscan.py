@@ -1,18 +1,20 @@
 import os
 import socket
+import shutil
 import subprocess
 import concurrent.futures
 import re
+import time
+import csv
 import ipaddress
 from datetime import datetime
 
 # Basic Color Codes for Layout
-G = '\033[32m' # Green
-C = '\033[36m' # Cyan
-Y = '\033[33m' # Yellow
-R = '\033[31m' # Red
-W = '\033[0m'  # White
-
+G = '\033[32m'
+C = '\033[36m'
+Y = '\033[33m'
+R = '\033[31m'
+W = '\033[0m'
 ORANGE = '\033[38;5;208m'
 PURPLE = '\033[35m'
 BLUE   = '\033[34m'
@@ -39,7 +41,28 @@ def get_banner():
     print(f"{G} Platform  :{W} Termux / Linux")
     print(f"{G} Telegram  :{W} https://t.me/nscan_script")
     print(f"{C}{'='*58}{W}")
+def startup_check():
+    print(f"\n{C}[*] Running startup checks...{W}")
 
+    # Output folder
+    os.makedirs("output", exist_ok=True)
+
+    # Check httpx
+    if shutil.which("httpx") is None:
+      print(f"{Y}[!] Warning: httpx not found in PATH.{W}")
+    else:
+      print(f"{G}[✓] httpx detected{W}")
+
+    # Internet check
+    try:
+        socket.create_connection(("8.8.8.8", 53), timeout=1)
+        print(f"{G}[✓] Internet connection available{W}")
+    except:
+        print(f"{Y}[!] Internet connection unavailable{W}")
+
+    print(f"{G}[✓] Startup complete{W}\n")
+    return True
+    
 def strip_ansi_codes(text):
     ansi_escape = re.compile(r'(?:\x1B[@-_][0-?]*[ -/]*[@-~])')
     return ansi_escape.sub('', text)
@@ -111,6 +134,7 @@ def run_httpx_and_format_table(cmd, folder_name):
     except Exception as e:
         print(f"{R}[-] Error: {e}{W}")
     print(f"{C}+--------------------+------+--------+-------------------------------+{W}")
+
 
 def bug_host_scan():
     print(f"\n{G}[1]{W} Scan from File (e.g. ips.txt)")
@@ -186,6 +210,10 @@ def subnet_smart_worker(subnet_base):
         return subnet_base, True, f"{subnet_base}.0.1"
     if stable_connect(f"{subnet_base}.1.1"):
         return subnet_base, True, f"{subnet_base}.1.1"
+    if stable_connect(f"{subnet_base}.0.1"):
+        return subnet_base, True, f"{subnet_base}.2.1"
+    if stable_connect(f"{subnet_base}.1.1"):
+        return subnet_base, True, f"{subnet_base}.1.10"
     return subnet_base, False, None
 
 def active_subnet_finder():
@@ -223,19 +251,51 @@ def payload_gen():
     print(f"\n{G}[+] PAYLOADS:\n{C}WS:{W} GET / HTTP/1.1[crlf]Host: {host}[crlf]Upgrade: websocket[crlf][crlf]")
 
 def main():
+    if not startup_check():
+        return
+
     while True:
         clear_screen()
         get_banner()
-        print(f"{G}[1]{W} Bug Host Discovery (Perfect Table View)")
-        print(f"{G}[2]{W} Reverse IP Lookup (Table View)")
-        print(f"{G}[3]{W} Payload Generator")
-        print(f"{G}[4]{W} Subnet Scanner (Active /16 Finder) 🔥")
-        print(f"{G}[5]{W} Exit")
-        opt = input(f"\n{C}NS-Hacker > {W}")
-        if opt == '1': bug_host_scan(); input("\nEnter...")
-        elif opt == '2': mass_reverse_dns(); input("\nEnter...")
-        elif opt == '3': payload_gen(); input("\nEnter...")
-        elif opt == '4': active_subnet_finder(); input("\nEnter...")
-        elif opt == '5': break
 
-if __name__ == "__main__": main()
+        print(f"{C}═══════════════════════════════════════════════{W}")
+        print(f"{G}[1]{W} 🌐 Bug Host Discovery")
+        print(f"{G}[2]{W} 🔎 Reverse IP Lookup")
+        print(f"{G}[3]{W} ⚡ Payload Generator")
+        print(f"{G}[4]{W} 📡 Active /16 Scanner")
+        print(f"{R}[5]{W} ❌ Exit")
+        print(f"{C}═══════════════════════════════════════════════{W}")
+
+        opt = input(f"\n{C}NS-Hacker > {W}")
+
+        if opt == '1':
+            bug_host_scan()
+            input("\nPress Enter to continue...")
+
+        elif opt == '2':
+            mass_reverse_dns()
+            input("\nPress Enter to continue...")
+
+        elif opt == '3':
+            payload_gen()
+            input("\nPress Enter to continue...")
+
+        elif opt == '4':
+            active_subnet_finder()
+            input("\nPress Enter to continue...")
+
+        elif opt == '5':
+            print(f"\n{G}[✓] Thanks for using NScan!{W}")
+            break
+
+        else:
+            print(f"\n{R}[!] Invalid option! Please select 1-5.{W}")
+            input("\nPress Enter to continue...")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print(f"\n{Y}[!] Scan cancelled by user.{W}")
+        print(f"{G}Thank you for using NScan ❤️{W}")
